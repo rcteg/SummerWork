@@ -1,0 +1,123 @@
+Preface: This is one large congolomeration of the *important* CodingBat problems I completed.
+If you want to see more(there are a lot more), you can create a teacher account at codingbat.org and I can link my account to yours 
+so that you can see everything.
+
+********************************************************IMPORTANT ONES:**********************************************************
+
+Given an array length 1 or more of ints, return the difference between the largest and smallest values in the array. 
+Note: the built-in min(v1, v2) and max(v1, v2) functions return the smaller or larger of two values.
+
+big_diff([10, 3, 5, 6]) → 7
+big_diff([7, 2, 10, 9]) → 8
+big_diff([2, 10, 7, 2]) → 8
+
+def big_diff(nums):
+  min = nums[0]
+  max = nums[0]
+  for x in nums[1:]: #since min and max are set to the first value, the splicing starts at one for this loop
+    if(x < min): #detects for a new min
+      min = x
+    if(x > max): #detects for a new max
+      max = x
+  return max-min #returns the difference
+  
+  This shows the ability to splice, understand and write algorithims, and control structures
+  ----------------------------------------------------------------------------------------------------------------------------
+  Return the sum of the numbers in the array, returning 0 for an empty array.
+  Except the number 13 is very unlucky, so it does not count and numbers that come immediately after a 13 also do not count.
+
+sum13([1, 2, 2, 1]) → 6
+sum13([1, 1]) → 2
+sum13([1, 2, 2, 1, 13]) → 6
+
+def sum13(nums):
+  total =0
+  i =0
+  while(i < len(nums)): #using a while loop to go through the nums array
+    if(nums[i] == 13): #detects a 13 and skips ahead in value
+      i+=2
+    else:
+      total += nums[i] #adds to the total
+      i+=1
+  return total
+  
+  This shows an udnerstanding of while loops as well as way to avoid the problems of for loops in python (which are not always good)
+  ------------------------------------------------------------------------------------------------------------------------------
+  
+Return the sum of the numbers in the array, except ignore sections of numbers starting with a 6 and extending to the next 7
+ (every 6 will be followed by at least one 7). Return 0 for no numbers.
+
+sum67([1, 2, 2]) → 5
+sum67([1, 2, 2, 6, 99, 99, 7]) → 5
+sum67([1, 1, 6, 7, 2]) → 4
+
+def sum67(nums):
+  sum = 0
+  i = 0
+  count = 0
+  while(i < len(nums)):#using a while loop to go through the nums array
+    if(nums[i] == 6): # if it's a six add to the count
+      count+=1
+      while(nums[i] != 7): #skips until it meets a 7
+        i+=1
+    else:
+      sum+= nums[i] #add to the sum
+      i+=1
+  return sum-(count*7) # each count represents one 7 that was added in the code above, so it must be subtrracted from the sum
+  -------------------------------------------------------------------------------------------------------------------------------
+Given two strings, return True if either of the strings appears at the very end of the other string,
+ignoring upper/lower case differences (in other words, the computation should not be "case sensitive"). 
+Note: s.lower() returns the lowercase version of a string.
+
+end_other('Hiabc', 'abc') → True
+end_other('AbC', 'HiaBc') → True
+end_other('abc', 'abXabc') → True
+
+def end_other(a, b):
+  return (a[-len(b):].lower() == b.lower()) or (b[-len(a):].lower() == a.lower()) #tests to see if one string fits in the end of the other
+  
+  Shows an understanding of Python logic, methods, and strings/splicing
+ ---------------------------------------------------------------------------------------------------------------------------------
+We want to make a row of bricks that is goal inches long. 
+We have a number of small bricks (1 inch each) and big bricks (5 inches each). 
+Return True if it is possible to make the goal by choosing from the given bricks. 
+This is a little harder than it looks and can be done without any loops. See also: Introduction to MakeBricks
+
+make_bricks(3, 1, 8) → True
+make_bricks(3, 1, 9) → False
+make_bricks(3, 2, 10) → True
+
+def make_bricks(small, big, goal):
+  if(goal - (big * 5) >=0 and goal-big*5 <= small): #tests to see if the goal - the amount of large bricks (times 5, which is its amount) is less than or equal to small, in which case it is true
+    return True
+  if(goal - big*5 <0 and goal%5 <= small): #tests to see the other way around... if the goal - big*5 is negative, then the goal%5 has to be less than small to say that there are enough small bricks
+    return True
+  return False
+ 
+ Just a difficult-ish puzzle to solve.
+  ---------------------------------------------------------------------------------------------------------------------------------
+We want make a package of goal kilos of chocolate. We have small bars (1 kilo each) and big bars (5 kilos each). 
+Return the number of small bars to use, assuming we always use big bars before small bars. Return -1 if it can't be done.
+
+make_chocolate(4, 1, 9) → 4
+make_chocolate(4, 1, 10) → -1
+make_chocolate(4, 1, 7) → 2
+
+def make_chocolate(small, big, goal):
+  if not make_bricks(small, big, goal):
+    return -1
+  elif goal - big*5 >=0 :
+    return goal-big*5
+  else:
+    return goal%5
+    
+def make_bricks(small, big, goal):
+  if(goal - (big * 5) >=0 and goal-big*5 <= small):
+    return True
+  if(goal - big*5 <0 and goal%5 <= small):
+    return True
+  return False
+  
+  Shows being able to use old code, create and use it in a method, and then solve a problem with it. 
+  ---------------------------------------------------------------------------------------------------------------------------------
+ 
